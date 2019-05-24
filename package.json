@@ -1,6 +1,6 @@
 {
   "name": "rdxgen",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "redux boilerplate generator for reducers and ctions",
   "main": "index.js",
   "repository": "https://github.com/onerzafer/reduxGen",
