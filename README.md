@@ -1,17 +1,17 @@
-# redux-gen: Redux Reducer and Action boilerplate Generator
+# rdxgen: Redux Reducer and Action boilerplate Generator
 
 A simple CLI to generate reducer and action files and their respective tests under given folder
 
 ## Installaion
 
 ```bash
-npm install redux-gen -g
+npm install rdxgen -g
 ```
 
 or
 
 ```bash
-yarn global add redux-gen
+yarn global add rdxgen
 ```
 
 ## Usage
@@ -19,7 +19,7 @@ yarn global add redux-gen
 Since its an interactive CLI you simple call following command and it will ask quetions to you. Answer the questions and you will get your boilerplate ready to use. The good thing is all the test are green :)
 
 ```bash
-redux-gen reducer
+rdxgen reducer
 ```
 
 Then the CLI start asking following questions
@@ -37,7 +37,7 @@ Then the CLI start asking following questions
 Let`s assume we would like to have a Products reducer and related actions.
 
 ```bash
-redux-gen r
+rdxgen r
 ? Name of new reducer: Producsts
 ? path of store: src/reduxStore
 ? Enter actions with space saperated: GET_PRODUCTS UPDATE_PRODUCT ADD_PRODUCT DELETE_PRODUCT
