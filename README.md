@@ -19,7 +19,13 @@ yarn global add rdxgen
 Since its an interactive CLI you simple call following command and it will ask quetions to you. Answer the questions and you will get your boilerplate ready to use. The good thing is all the test are green :)
 
 ```bash
-rdxgen reducer
+rdxgen
+```
+
+or for typescript
+
+```bash
+rdxgen -ts
 ```
 
 Then the CLI start asking following questions
@@ -37,7 +43,7 @@ Then the CLI start asking following questions
 Let`s assume we would like to have a Products reducer and related actions.
 
 ```bash
-rdxgen r
+rdxgen
 ? Name of new reducer: Producsts
 ? path of store: src/reduxStore
 ? Enter actions with space saperated: GET_PRODUCTS UPDATE_PRODUCT ADD_PRODUCT DELETE_PRODUCT

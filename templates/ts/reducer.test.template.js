@@ -1,23 +1,34 @@
+const changeCase = require('change-case/change-case');
+
 module.exports = options => `
 import { ${options.name}Reducer } from './${options.name}.reducer';
+import {${options.name}State} from './${options.name}.interface';
+import {
+    ${options.actions
+      .reduce(
+        (actions, action) => [...actions, action, `${action}_${options.OkSuffix}`, `${action}_${options.ErrSuffix}`],
+        []
+      )
+      .map(action => `${changeCase.pascalCase(action)}Action`)
+      .join(',\n')}
+} from './${options.name}.actions';
 
-describe("${options.name}.reducer.js  tests", () => {
+describe("${options.name}.reducer.ts  tests", () => {
 ${options.actions
   .map(
     action => `
   it('should update the state properly for "${action}"', () => {
-    const given = {
+    const given:${options.name}State = {
       pending: false,
       data: { dummy: "state" },
       error: undefined
     };
 
-    const action = {
-      type: "${action}",
-      payload: { dummy: "payload" }
-    };
+    const action = new ${changeCase.pascalCase(action)}Action(
+      { dummy: "payload" }
+    );
 
-    const expected = {
+    const expected:${options.name}State = {
       pending: true,
       data: { dummy: "state" },
       error: undefined
@@ -27,18 +38,17 @@ ${options.actions
   });
 
   it('should update the state properly for "${action}_${options.OkSuffix}"', () => {
-    const given = {
+    const given:${options.name}State = {
       pending: true,
       data: undefined,
       error: undefined
     };
 
-    const action = {
-      type: "${action}_${options.OkSuffix}",
-      payload: { dummy: "payload" }
-    };
+    const action = new ${changeCase.pascalCase(`${action}_${options.OkSuffix}`)}Action(
+      { dummy: "payload" }
+    );
 
-    const expected = {
+    const expected:${options.name}State = {
       pending: false,
       data: { dummy: "payload" },
       error: undefined
@@ -48,21 +58,20 @@ ${options.actions
   });
 
   it('should update the state properly for "${action}_${options.ErrSuffix}"', () => {
-    const given = {
+    const given:${options.name}State = {
       pending: true,
       data: { dummy: "state" },
       error: undefined
     };
 
-    const action = {
-      type: "${action}_${options.ErrSuffix}",
-      payload: { dummy: "error" }
-    };
+    const action = new ${changeCase.pascalCase(`${action}_${options.ErrSuffix}`)}Action(
+      "error"
+    );
 
-    const expected = {
+    const expected:${options.name}State = {
       pending: false,
       data: { dummy: "state" },
-      error: { dummy: "error" }
+      error: "error"
     };
 
     expect(${options.name}Reducer(given, action)).toEqual(expected);

@@ -1,4 +1,4 @@
-const changeCase = require('change-case');
+const changeCase = require('change-case/change-case');
 
 module.exports = options => `${options.actions
   .map(

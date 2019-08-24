@@ -1,48 +1,32 @@
 const fs = require('fs');
 const prettier = require('prettier');
-const reducerFileGenerator = require('../templates/reducer.template');
-const reducerTestFileGenerator = require('../templates/reducer.test.template');
-const actionsFileGenerator = require('../templates/actions.template');
-const actionsTestFileGenerator = require('../templates/actions.test.template');
+const changeCase = require('change-case/change-case');
+const CONSTANTS = require('./constants');
 
-const prettierConf = {
-  bracketSpacing: true,
-  jsxBracketSameLine: true,
-  printWidth: 80,
-  singleQuote: true,
-  trailingComma: 'es5',
-  parser: 'babel',
-};
+function generateReducer(options, isTypescript = false) {
+  const reducerFileGenerator = require(`../templates/${isTypescript ? 'ts' : 'js'}/reducer.template`);
+  const reducerTestFileGenerator = require(`../templates/${isTypescript ? 'ts' : 'js'}/reducer.test.template`);
+  const actionsFileGenerator = require(`../templates/${isTypescript ? 'ts' : 'js'}/actions.template`);
+  const actionsTestFileGenerator = require(`../templates/${isTypescript ? 'ts' : 'js'}/actions.test.template`);
 
-function generateReducer(options) {
-  options.actions = options.actions.split(' ');
+  options.actions = typeof options.actions === 'string' ? options.actions.split(' ') : options.actions;
+  options.name = changeCase.ucFirst(changeCase.camel(options.name));
 
   const dir = options.path + '/' + options.name;
+  const fileNamePrefix = dir + '/' + options.name;
 
-  const reducerPath = dir + '/' + options.name + '.reducer.js';
-  const reducerTestPath = dir + '/' + options.name + '.reducer.test.js';
-  const actionsPath = dir + '/' + options.name + '.actions.js';
-  const actionsTestPath = dir + '/' + options.name + '.actions.test.js';
+  const prettierConf = prettier.resolveConfig.sync(__dirname, CONSTANTS.prettierFallbackConf);
+  prettierConf.parser = isTypescript ? 'typescript' : 'babel';
 
-  const reducerFile = prettier.format(
-    reducerFileGenerator(options),
-    prettierConf
-  );
+  const reducerPath = fileNamePrefix + '.reducer.' + (isTypescript ? 'ts' : 'js');
+  const reducerTestPath = fileNamePrefix + '.reducer.test.' + (isTypescript ? 'ts' : 'js');
+  const actionsPath = fileNamePrefix + '.actions.' + (isTypescript ? 'ts' : 'js');
+  const actionsTestPath = fileNamePrefix + '.actions.test.' + (isTypescript ? 'ts' : 'js');
 
-  const reducerTestFile = prettier.format(
-    reducerTestFileGenerator(options),
-    prettierConf
-  );
-
-  const actionsFile = prettier.format(
-    actionsFileGenerator(options),
-    prettierConf
-  );
-
-  const actionsTestFile = prettier.format(
-    actionsTestFileGenerator(options),
-    prettierConf
-  );
+  const reducerFile = prettier.format(reducerFileGenerator(options), prettierConf);
+  const reducerTestFile = prettier.format(reducerTestFileGenerator(options), prettierConf);
+  const actionsFile = prettier.format(actionsFileGenerator(options), prettierConf);
+  const actionsTestFile = prettier.format(actionsTestFileGenerator(options), prettierConf);
 
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
@@ -63,6 +47,18 @@ function generateReducer(options) {
   fs.writeFile(actionsTestPath, actionsTestFile, { flag: 'wx' }, function(err) {
     if (err) throw err;
   });
+
+  if (isTypescript) {
+    const interfacesFileGenerator = require(`../templates/ts/interfaces.template`);
+    const interfacesFile = prettier.format(interfacesFileGenerator(options), prettierConf);
+    const interfacesTestPath = fileNamePrefix + '.interface.ts';
+
+    fs.writeFile(interfacesTestPath, interfacesFile, { flag: 'wx' }, function(err) {
+      if (err) throw err;
+    });
+  }
+
+  return options;
 }
 
 module.exports = generateReducer;
