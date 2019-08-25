@@ -16,7 +16,7 @@ ${options.actions
     []
   )
   .map(action => changeCase.pascalCase(action)).map(action => `
-  export interface ${action}Payload {
+  export interface ${options.name}${action}Payload {
   }
   `).join('\n')}
 `;

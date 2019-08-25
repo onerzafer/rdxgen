@@ -8,7 +8,7 @@ import {
         (actions, action) => [...actions, action, `${action}_${options.OkSuffix}`, `${action}_${options.ErrSuffix}`],
         []
       )
-      .map(action => `${changeCase.pascalCase(action)}Action`)
+      .map(action => `${options.name}${changeCase.pascalCase(action)}Action`)
       .join(',\n')}
 } from './${options.name}.actions';
 
@@ -20,9 +20,9 @@ describe("${options.name}.actions.ts tests", () => {
       )
       .map(
         action => `
-  it("should has the correct type and payload for ${changeCase.pascalCase(action)}Action", () => {
+  it("should has the correct type and payload for ${options.name}${changeCase.pascalCase(action)}Action", () => {
     const payload = { some: "dummy" };
-    const given = new ${changeCase.pascalCase(action)}Action(payload);
+    const given = new ${options.name}${changeCase.pascalCase(action)}Action(payload);
 
     expect(given.type).toEqual(${options.name}ActionTypes.${action});
     expect(given.payload).toEqual(payload);

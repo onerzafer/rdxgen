@@ -29,9 +29,9 @@ ${options.actions
   )
   .map(
     action => `
-export class ${changeCase.pascalCase(action)}Action {
+export class ${options.name}${changeCase.pascalCase(action)}Action {
   readonly type = ${options.name}ActionTypes.${action};
-  constructor(public payload: ${changeCase.pascalCase(action)}Payload) {}
+  constructor(public payload: ${options.name}${changeCase.pascalCase(action)}Payload) {}
 }
 `
   )
@@ -43,7 +43,7 @@ export type ${options.name}Actions = ${options.actions
     []
   )
   .map(
-    action => `${changeCase.pascalCase(action)}Action`
+    action => `${options.name}${changeCase.pascalCase(action)}Action`
   )
   .join('|\n')};
 `;
