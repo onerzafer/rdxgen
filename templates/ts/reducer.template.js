@@ -1,6 +1,5 @@
 module.exports = options => `import {${options.name}ActionTypes} from './${options.name}.actions';
-import {${options.name}State} from './${options.name}.interface';
-import {${options.name}Actions} from './${options.name}.actions';
+import {${options.name}State, ${options.name}Action } from './${options.name}.interface';
 
 const ${options.name}InitialState: ${options.name}State = {
   pending: false,
@@ -10,8 +9,8 @@ const ${options.name}InitialState: ${options.name}State = {
 
 export const ${options.name}Reducer = (
     state: ${options.name}State = ${options.name}InitialState,
-    action: ${options.name}Actions
-) => {
+    action: ${options.name}Action
+): ${options.name}State => {
   switch (action.type) {
     ${options.actions
       .map(action => {

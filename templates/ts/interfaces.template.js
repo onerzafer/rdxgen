@@ -12,11 +12,16 @@ export interface ${options.name}State {
 
 ${options.actions
   .reduce(
-    (actions, action) => [...actions, action, `${action}_${options.OkSuffix}`, `${action}_${options.ErrSuffix}`],
+    (actions, action) => [...actions, action, `${action}_${options.OkSuffix}`],
     []
   )
   .map(action => changeCase.pascalCase(action)).map(action => `
   export interface ${options.name}${action}Payload {
   }
   `).join('\n')}
+  
+export interface ${options.name}Action {
+  type: string;
+  payload?: any;
+}
 `;

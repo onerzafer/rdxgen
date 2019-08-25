@@ -21,8 +21,8 @@ describe("${options.name}.actions.ts tests", () => {
       .map(
         action => `
   it("should has the correct type and payload for ${options.name}${changeCase.pascalCase(action)}Action", () => {
-    const payload = { some: "dummy" };
-    const given = new ${options.name}${changeCase.pascalCase(action)}Action(payload);
+    const payload = ${action.includes(options.ErrSuffix) ? `"dummy"` : `{ some: "dummy" }`};
+    const given = ${options.name}${changeCase.pascalCase(action)}Action(payload);
 
     expect(given.type).toEqual(${options.name}ActionTypes.${action});
     expect(given.payload).toEqual(payload);

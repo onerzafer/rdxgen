@@ -9,7 +9,7 @@ import {
         (actions, action) => [...actions, action, `${action}_${options.OkSuffix}`, `${action}_${options.ErrSuffix}`],
         []
       )
-      .map(action => `${changeCase.pascalCase(action)}Action`)
+      .map(action => `${options.name}${changeCase.pascalCase(action)}Action`)
       .join(',\n')}
 } from './${options.name}.actions';
 
@@ -24,7 +24,7 @@ ${options.actions
       error: undefined
     };
 
-    const action = new ${changeCase.pascalCase(action)}Action(
+    const action = ${options.name}${changeCase.pascalCase(action)}Action(
       { dummy: "payload" }
     );
 
@@ -44,7 +44,7 @@ ${options.actions
       error: undefined
     };
 
-    const action = new ${changeCase.pascalCase(`${action}_${options.OkSuffix}`)}Action(
+    const action = ${options.name}${changeCase.pascalCase(`${action}_${options.OkSuffix}`)}Action(
       { dummy: "payload" }
     );
 
@@ -64,7 +64,7 @@ ${options.actions
       error: undefined
     };
 
-    const action = new ${changeCase.pascalCase(`${action}_${options.ErrSuffix}`)}Action(
+    const action = ${options.name}${changeCase.pascalCase(`${action}_${options.ErrSuffix}`)}Action(
       "error"
     );
 
