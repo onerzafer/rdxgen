@@ -7,7 +7,7 @@ ${options.actions
     []
   )
   .map(action => changeCase.pascalCase(action))
-  .map(action => `${action}Payload,`)
+  .map(action => `${options.name}${action}Payload,`)
   .join('\n')}
 } from './${options.name}.interface';
 
