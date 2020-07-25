@@ -1,0 +1,11 @@
+export interface {{pascalName}}State {
+    pending: boolean;
+    data: any;
+    error: string;
+}
+
+{{#each groupedActionTypes}}
+export interface {{this.okAction}}Payload {
+    [key: string]: any;
+}
+{{/each}}

@@ -1,0 +1,39 @@
+import {
+    {{pascalName}}ActionTypes,
+    {{#each groupedActionTypes}}
+      {{this.initAction}},
+      {{this.okAction}},
+      {{this.errAction}},
+    {{/each}}
+} from '{{filePaths.actions}}';
+import {
+    {{#each groupedActionTypes}}
+        {{this.okAction}}Payload,
+    {{/each}}
+} from '{{filePaths.interfaces}}';
+
+
+describe("{{filePaths.actions}} tests", () => {
+{{#each groupedActionTypes}}
+  it("should has the correct type and payload for {{this.initAction}}", () => {
+    const given = { some: "dummy" };
+    const expected = { type: {{@root.pascalName}}ActionTypes.{{this.initType}}, payload: { some: "dummy" } };
+
+    expect({{this.initAction}}(given)).toStrictEqual(expected);
+  });
+
+  it("should has the correct type and payload for {{this.okAction}}", () => {
+    const given = { some: "dummy" } as {{this.okAction}}Payload;
+    const expected = { type: {{@root.pascalName}}ActionTypes.{{this.okType}}, payload: { some: "dummy" } };
+
+    expect({{this.okAction}}(given)).toStrictEqual(expected);
+  });
+
+  it("should has the correct type and payload for {{this.errAction}}", () => {
+    const given = { some: "dummy" };
+    const expected = { type: {{@root.pascalName}}ActionTypes.{{this.errType}}, payload: { some: "dummy" } };
+
+    expect({{this.errAction}}(given)).toStrictEqual(expected);
+  });
+{{/each}}
+});

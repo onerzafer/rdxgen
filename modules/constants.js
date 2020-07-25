@@ -1,5 +1,12 @@
+const path = require('path');
+
 module.exports = {
-  savedAnswersPath: `${process.cwd()}/reduxGen.json`,
+  savedAnswersPath: `${process.cwd()}/rdxgen.json`,
+  overrideTemplatesPath: `${process.cwd()}/rdxgen`,
+  templatePaths: {
+    ts: path.join(__dirname, `../templates/ts`),
+    js: path.join(__dirname, `../templates/js`)
+  },
   defaultQuestions: [
     {
       type: 'input',
@@ -14,7 +21,7 @@ module.exports = {
     {
       type: 'input',
       name: 'actions',
-      message: 'Enter actions with space saperated:',
+      message: 'Enter actions with space separated:',
     },
     {
       type: 'input',

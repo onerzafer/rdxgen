@@ -1,0 +1,23 @@
+{{#each groupedActionTypes}}
+export const {{this.initType}} = '{{this.initTypeValue}}';
+export const {{this.okType}} = '{{this.okTypeValue}}';
+export const {{this.errType}} = '{{this.errTypeValue}}';
+{{/each}}
+
+{{#each groupedActionTypes}}
+export const {{this.initAction}} = (payload) => ({
+  type: {{this.initType}},
+  payload,
+});
+
+export const {{this.okAction}} = (payload) => ({
+  type: {{this.okType}},
+  payload,
+});
+
+export const {{this.errAction}} = (payload) => ({
+  type: {{this.errType}},
+  payload,
+});
+
+{{/each}}

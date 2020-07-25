@@ -1,8 +1,10 @@
 # rdxgen: Redux Reducer and Action boilerplate Generator
 
-A simple CLI to generate reducer and action files and their respective tests under given folder
+A simple and highly customizable CLI to generate the reducer and action files and their respective tests under given folder.
 
-## Installaion
+🎉🎉🎉 Now it supports [templates](#templating) 🎉🎉🎉
+
+## Installation
 
 ```bash
 npm install rdxgen -g
@@ -16,16 +18,18 @@ yarn global add rdxgen
 
 ## Usage
 
-Since its an interactive CLI you simple call following command and it will ask quetions to you. Answer the questions and you will get your boilerplate ready to use. The good thing is all the test are green :)
+Since its an interactive CLI, you simply call following command, and it will ask questions to you. Answer the questions, and you will get your redux boilerplate ready to use whether as Javascript or Typescript . The good thing is all the test are green :)
+
+For Javascript
 
 ```bash
 rdxgen
 ```
 
-or for typescript
+For Typescript
 
 ```bash
-rdxgen -ts
+rdxgen -t
 ```
 
 Then the CLI start asking following questions
@@ -37,6 +41,14 @@ Then the CLI start asking following questions
 ? Success suffix:
 ? Error suffix:
 ```
+
+Don't forget to save your default answers by adding s to your command
+
+```bash
+rdxgen -s
+```
+
+Next time you will be asked way less questions.
 
 ## Example
 
@@ -58,605 +70,109 @@ This will create following files
 - src/reduxStore/Products/Products.reducer.js
 - src/reduxStore/Products/Products.reducer.test.js
 
-the contents of these files will be:
+or
 
-Products.actions.js
+This will create following files
 
-```javascript
-export const GET_PRODUCTS = 'GET_PRODUCTS';
-export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
-export const GET_PRODUCTS_ERROR = 'GET_PRODUCTS_ERROR';
+- src/reduxStore/Products/Products.actions.ts
+- src/reduxStore/Products/Products.actions.test.ts
+- src/reduxStore/Products/Products.interfaces.ts
+- src/reduxStore/Products/Products.reducer.ts
+- src/reduxStore/Products/Products.reducer.test.ts
 
-export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-export const UPDATE_PRODUCT_SUCCESS = 'UPDATE_PRODUCT_SUCCESS';
-export const UPDATE_PRODUCT_ERROR = 'UPDATE_PRODUCT_ERROR';
+## Templating
 
-export const ADD_PRODUCT = 'ADD_PRODUCT';
-export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
-export const ADD_PRODUCT_ERROR = 'ADD_PRODUCT_ERROR';
+Templates are Handlebar templates and rdxgen passes some variables, so you can create the best template for your project. Even rdxgen has no opinion on libraries, the default templates are prepared for the most used libraries in the market. On typescript templates the output files will be compatible with @ngrx/store and for the javascript side assumed library is redux.
 
-export const DELETE_PRODUCT = 'DELETE_PRODUCT';
-export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
-export const DELETE_PRODUCT_ERROR = 'DELETE_PRODUCT_ERROR';
+You can easily export default templates with the following command
 
-export const GetProductsAction = payload => ({
-  type: GET_PRODUCTS,
-  payload,
-});
-
-export const GetProductsSuccessAction = payload => ({
-  type: GET_PRODUCTS_SUCCESS,
-  payload,
-});
-
-export const GetProductsErrorAction = payload => ({
-  type: GET_PRODUCTS_ERROR,
-  payload,
-});
-
-export const UpdateProductAction = payload => ({
-  type: UPDATE_PRODUCT,
-  payload,
-});
-
-export const UpdateProductSuccessAction = payload => ({
-  type: UPDATE_PRODUCT_SUCCESS,
-  payload,
-});
-
-export const UpdateProductErrorAction = payload => ({
-  type: UPDATE_PRODUCT_ERROR,
-  payload,
-});
-
-export const AddProductAction = payload => ({
-  type: ADD_PRODUCT,
-  payload,
-});
-
-export const AddProductSuccessAction = payload => ({
-  type: ADD_PRODUCT_SUCCESS,
-  payload,
-});
-
-export const AddProductErrorAction = payload => ({
-  type: ADD_PRODUCT_ERROR,
-  payload,
-});
-
-export const DeleteProductAction = payload => ({
-  type: DELETE_PRODUCT,
-  payload,
-});
-
-export const DeleteProductSuccessAction = payload => ({
-  type: DELETE_PRODUCT_SUCCESS,
-  payload,
-});
-
-export const DeleteProductErrorAction = payload => ({
-  type: DELETE_PRODUCT_ERROR,
-  payload,
-});
+```bash
+rdxgen -e
 ```
 
-Products.actions.test.js
+This command will not generate a reducer but will export the default templates. So you can add, change or remove stuff. You can even add more files like selector, effects, epics, and more templates.
 
-```javascript
-import {
-  GetProductsAction,
-  GetProductsSuccessAction,
-  GetProductsErrorAction,
-  UpdateProductAction,
-  UpdateProductSuccessAction,
-  UpdateProductErrorAction,
-  AddProductAction,
-  AddProductSuccessAction,
-  AddProductErrorAction,
-  DeleteProductAction,
-  DeleteProductSuccessAction,
-  DeleteProductErrorAction,
-} from './Products.actions';
+### Template variables
 
-describe('Products.actions.js tests', () => {
-  it('should has the correct type and payload for GetProductsAction', () => {
-    const given = { some: 'dummy' };
-    const expected = { type: 'GET_PRODUCTS', payload: { some: 'dummy' } };
+rgxgen will dynamically generate from your answers. I will explain the rules here about how they are generated and can be used.
 
-    expect(GetProductsAction(given).type).toEqual('GET_PRODUCTS');
-    expect(GetProductsAction(given)).toEqual(expected);
-  });
+Let's assume you gave following answers:
 
-  it('should has the correct type and payload for GetProductsSuccessAction', () => {
-    const given = { some: 'dummy' };
-    const expected = {
-      type: 'GET_PRODUCTS_SUCCESS',
-      payload: { some: 'dummy' },
-    };
-
-    expect(GetProductsSuccessAction(given).type).toEqual(
-      'GET_PRODUCTS_SUCCESS'
-    );
-    expect(GetProductsSuccessAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for GetProductsErrorAction', () => {
-    const given = { some: 'dummy' };
-    const expected = { type: 'GET_PRODUCTS_ERROR', payload: { some: 'dummy' } };
-
-    expect(GetProductsErrorAction(given).type).toEqual('GET_PRODUCTS_ERROR');
-    expect(GetProductsErrorAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for UpdateProductAction', () => {
-    const given = { some: 'dummy' };
-    const expected = { type: 'UPDATE_PRODUCT', payload: { some: 'dummy' } };
-
-    expect(UpdateProductAction(given).type).toEqual('UPDATE_PRODUCT');
-    expect(UpdateProductAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for UpdateProductSuccessAction', () => {
-    const given = { some: 'dummy' };
-    const expected = {
-      type: 'UPDATE_PRODUCT_SUCCESS',
-      payload: { some: 'dummy' },
-    };
-
-    expect(UpdateProductSuccessAction(given).type).toEqual(
-      'UPDATE_PRODUCT_SUCCESS'
-    );
-    expect(UpdateProductSuccessAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for UpdateProductErrorAction', () => {
-    const given = { some: 'dummy' };
-    const expected = {
-      type: 'UPDATE_PRODUCT_ERROR',
-      payload: { some: 'dummy' },
-    };
-
-    expect(UpdateProductErrorAction(given).type).toEqual(
-      'UPDATE_PRODUCT_ERROR'
-    );
-    expect(UpdateProductErrorAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for AddProductAction', () => {
-    const given = { some: 'dummy' };
-    const expected = { type: 'ADD_PRODUCT', payload: { some: 'dummy' } };
-
-    expect(AddProductAction(given).type).toEqual('ADD_PRODUCT');
-    expect(AddProductAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for AddProductSuccessAction', () => {
-    const given = { some: 'dummy' };
-    const expected = {
-      type: 'ADD_PRODUCT_SUCCESS',
-      payload: { some: 'dummy' },
-    };
-
-    expect(AddProductSuccessAction(given).type).toEqual('ADD_PRODUCT_SUCCESS');
-    expect(AddProductSuccessAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for AddProductErrorAction', () => {
-    const given = { some: 'dummy' };
-    const expected = { type: 'ADD_PRODUCT_ERROR', payload: { some: 'dummy' } };
-
-    expect(AddProductErrorAction(given).type).toEqual('ADD_PRODUCT_ERROR');
-    expect(AddProductErrorAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for DeleteProductAction', () => {
-    const given = { some: 'dummy' };
-    const expected = { type: 'DELETE_PRODUCT', payload: { some: 'dummy' } };
-
-    expect(DeleteProductAction(given).type).toEqual('DELETE_PRODUCT');
-    expect(DeleteProductAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for DeleteProductSuccessAction', () => {
-    const given = { some: 'dummy' };
-    const expected = {
-      type: 'DELETE_PRODUCT_SUCCESS',
-      payload: { some: 'dummy' },
-    };
-
-    expect(DeleteProductSuccessAction(given).type).toEqual(
-      'DELETE_PRODUCT_SUCCESS'
-    );
-    expect(DeleteProductSuccessAction(given)).toEqual(expected);
-  });
-
-  it('should has the correct type and payload for DeleteProductErrorAction', () => {
-    const given = { some: 'dummy' };
-    const expected = {
-      type: 'DELETE_PRODUCT_ERROR',
-      payload: { some: 'dummy' },
-    };
-
-    expect(DeleteProductErrorAction(given).type).toEqual(
-      'DELETE_PRODUCT_ERROR'
-    );
-    expect(DeleteProductErrorAction(given)).toEqual(expected);
-  });
-});
+```bash
+rdxgen
+? Name of new reducer: Product categories
+? path of store: store
+? Enter actions with space saperated: GET SET
+? Success suffix: OK
+? Error suffix: ERR
 ```
 
-Products.reducer.js
+the following variables will be filled like this.
 
-```javascript
-import {
-  GET_PRODUCTS,
-  GET_PRODUCTS_SUCCESS,
-  GET_PRODUCTS_ERROR,
-  UPDATE_PRODUCT,
-  UPDATE_PRODUCT_SUCCESS,
-  UPDATE_PRODUCT_ERROR,
-  ADD_PRODUCT,
-  ADD_PRODUCT_SUCCESS,
-  ADD_PRODUCT_ERROR,
-  DELETE_PRODUCT,
-  DELETE_PRODUCT_SUCCESS,
-  DELETE_PRODUCT_ERROR,
-} from './Products.actions';
-
-const ProductsInitialState = {
-  pending: false,
-  data: undefined,
-  error: undefined,
-};
-
-export const ProductsReducer = (state = ProductsInitialState, action) => {
-  switch (action.type) {
-    case GET_PRODUCTS: {
-      return {
-        ...state,
-        pending: true,
-      };
+```json
+{
+  "name": "Product Categories",
+  "pascalName": "ProductCategories",
+  "camelName": "productCategories",
+  "actionTypes": [
+    "PRODUCT_CATEGORIES_GET",
+    "PRODUCT_CATEGORIES_GET_OK",
+    "PRODUCT_CATEGORIES_GET_ERR",
+    "PRODUCT_CATEGORIES_SET",
+    "PRODUCT_CATEGORIES_SET_OK",
+    "PRODUCT_CATEGORIES_SET_ERR"
+  ],
+  "actionNames": [
+    "productCategoriesGetAction",
+    "productCategoriesGetOkAction",
+    "productCategoriesGetErrAction",
+    "productCategoriesSetAction",
+    "productCategoriesSetOkAction",
+    "productCategoriesSetErrAction"
+  ],
+  "groupedActionTypes": [
+    {
+      "actionName": "productCategories",
+      "service": "getProductCategories",
+      "initType": "PRODUCT_CATEGORIES_GET",
+      "initTypeValue": "[Product Categories] GET",
+      "initAction": "productCategoriesGetAction",
+      "okType": "PRODUCT_CATEGORIES_GET_OK",
+      "okTypeValue": "[Product Categories] GET OK",
+      "okAction": "productCategoriesGetOkAction",
+      "errType": "PRODUCT_CATEGORIES_GET_ERR",
+      "errTypeValue": "[Product Categories] GET ERR",
+      "errAction": "productCategoriesGetErrAction"
+    },
+    {
+      "actionName": "productCategories",
+      "service": "setProductCategories",
+      "initType": "PRODUCT_CATEGORIES_SET",
+      "initTypeValue": "[Product Categories] SET",
+      "initAction": "productCategoriesSetAction",
+      "okType": "PRODUCT_CATEGORIES_SET_OK",
+      "okTypeValue": "[Product Categories] SET OK",
+      "okAction": "productCategoriesSetOkAction",
+      "errType": "PRODUCT_CATEGORIES_SET_ERR",
+      "errTypeValue": "[Product Categories] SET ERR",
+      "errAction": "productCategoriesSetErrAction"
     }
-    case GET_PRODUCTS_SUCCESS: {
-      return {
-        ...state,
-        pending: false,
-        data: action.payload,
-      };
-    }
-    case GET_PRODUCTS_ERROR: {
-      return {
-        ...state,
-        pending: false,
-        error: action.payload,
-      };
-    }
-
-    case UPDATE_PRODUCT: {
-      return {
-        ...state,
-        pending: true,
-      };
-    }
-    case UPDATE_PRODUCT_SUCCESS: {
-      return {
-        ...state,
-        pending: false,
-        data: action.payload,
-      };
-    }
-    case UPDATE_PRODUCT_ERROR: {
-      return {
-        ...state,
-        pending: false,
-        error: action.payload,
-      };
-    }
-
-    case ADD_PRODUCT: {
-      return {
-        ...state,
-        pending: true,
-      };
-    }
-    case ADD_PRODUCT_SUCCESS: {
-      return {
-        ...state,
-        pending: false,
-        data: action.payload,
-      };
-    }
-    case ADD_PRODUCT_ERROR: {
-      return {
-        ...state,
-        pending: false,
-        error: action.payload,
-      };
-    }
-
-    case DELETE_PRODUCT: {
-      return {
-        ...state,
-        pending: true,
-      };
-    }
-    case DELETE_PRODUCT_SUCCESS: {
-      return {
-        ...state,
-        pending: false,
-        data: action.payload,
-      };
-    }
-    case DELETE_PRODUCT_ERROR: {
-      return {
-        ...state,
-        pending: false,
-        error: action.payload,
-      };
-    }
-
-    default:
-      return state;
+  ],
+  "filePaths": {
+    "actions": "./product-categories.actions",
+    "actions.test": "./product-categories.actions.test",
+    "reducer": "./product-categories.reducer",
+    "reducer.test": "./product-categories.reducer.tests"
   }
-};
+}
 ```
+I tried to provide a broad choice over naming conventions. By using this structure any Handlebar template can be used. More over it is possible to generate many more files. I would like to explain **filePaths** variable. Default js templates contains the following files with following names.
+ * actions.template
+ * actions.test.template
+ * reducer.template
+ * reducer.test.template
+There fore rdxgen drops the file suffix .template and populate the **filePaths** object with template names as keys. Values are the relative import paths for final generated files.
 
-Products.reducer.test.js
+For any further questions don't hesitate to ask them via issues.
 
-```javascript
-import { ProductsReducer } from './Products.reducer';
 
-describe('Products.reducer.js  tests', () => {
-  it('should update the state properly for "GET_PRODUCTS"', () => {
-    const given = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'GET_PRODUCTS',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "GET_PRODUCTS_SUCCESS"', () => {
-    const given = {
-      pending: true,
-      data: undefined,
-      error: undefined,
-    };
-
-    const action = {
-      type: 'GET_PRODUCTS_SUCCESS',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'payload' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "GET_PRODUCTS_ERROR"', () => {
-    const given = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'GET_PRODUCTS_ERROR',
-      payload: { dummy: 'error' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: { dummy: 'error' },
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "UPDATE_PRODUCT"', () => {
-    const given = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'UPDATE_PRODUCT',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "UPDATE_PRODUCT_SUCCESS"', () => {
-    const given = {
-      pending: true,
-      data: undefined,
-      error: undefined,
-    };
-
-    const action = {
-      type: 'UPDATE_PRODUCT_SUCCESS',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'payload' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "UPDATE_PRODUCT_ERROR"', () => {
-    const given = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'UPDATE_PRODUCT_ERROR',
-      payload: { dummy: 'error' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: { dummy: 'error' },
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "ADD_PRODUCT"', () => {
-    const given = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'ADD_PRODUCT',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "ADD_PRODUCT_SUCCESS"', () => {
-    const given = {
-      pending: true,
-      data: undefined,
-      error: undefined,
-    };
-
-    const action = {
-      type: 'ADD_PRODUCT_SUCCESS',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'payload' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "ADD_PRODUCT_ERROR"', () => {
-    const given = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'ADD_PRODUCT_ERROR',
-      payload: { dummy: 'error' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: { dummy: 'error' },
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "DELETE_PRODUCT"', () => {
-    const given = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'DELETE_PRODUCT',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "DELETE_PRODUCT_SUCCESS"', () => {
-    const given = {
-      pending: true,
-      data: undefined,
-      error: undefined,
-    };
-
-    const action = {
-      type: 'DELETE_PRODUCT_SUCCESS',
-      payload: { dummy: 'payload' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'payload' },
-      error: undefined,
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-
-  it('should update the state properly for "DELETE_PRODUCT_ERROR"', () => {
-    const given = {
-      pending: true,
-      data: { dummy: 'state' },
-      error: undefined,
-    };
-
-    const action = {
-      type: 'DELETE_PRODUCT_ERROR',
-      payload: { dummy: 'error' },
-    };
-
-    const expected = {
-      pending: false,
-      data: { dummy: 'state' },
-      error: { dummy: 'error' },
-    };
-
-    expect(ProductsReducer(given, action)).toEqual(expected);
-  });
-});
-```

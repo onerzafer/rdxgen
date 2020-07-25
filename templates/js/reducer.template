@@ -1,0 +1,45 @@
+import {
+{{#each actionTypes}}
+  {{this}},
+{{/each}}
+} from '{{filePaths.actions}}';
+
+const {{pascalName}}InitialState = {
+    pending: false,
+    data: null,
+    error: null,
+};
+
+export const {{camelName}}Reducer = (
+  state = {{pascalName}}InitialState,
+  action,
+) => {
+  switch (action.type) {
+  {{#each groupedActionTypes}}
+    case {{this.initType}}: {
+      return {
+        ...state,
+        pending: true,
+        error: null,
+      };
+    }
+    case {{this.okType}}: {
+      return {
+        ...state,
+        pending: false,
+        data: action.payload,
+      };
+    }
+    case {{this.errType}}: {
+      return {
+        ...state,
+        pending: false,
+        error: action.payload,
+      };
+    }
+    {{/each}}
+
+    default:
+      return state;
+  }
+};

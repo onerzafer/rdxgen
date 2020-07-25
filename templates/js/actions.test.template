@@ -1,0 +1,36 @@
+import {
+{{#each actionTypes}}
+  {{this}},
+{{/each}}
+{{#each groupedActionTypes}}
+  {{this.initAction}},
+  {{this.okAction}},
+  {{this.errAction}},
+{{/each}}
+} from '{{filePaths.actions}}';
+
+
+describe("{{filePaths.actions}} tests", () => {
+{{#each groupedActionTypes}}
+  it("should has the correct type and payload for {{this.initAction}}", () => {
+    const given = { some: "dummy" };
+    const expected = { type: {{this.initType}}, payload: { some: "dummy" } };
+
+    expect({{this.initAction}}(given)).toStrictEqual(expected);
+  });
+
+  it("should has the correct type and payload for {{this.okAction}}", () => {
+    const given = { some: "dummy" };
+    const expected = { type: {{this.okType}}, payload: { some: "dummy" } };
+
+    expect({{this.okAction}}(given)).toStrictEqual(expected);
+  });
+
+  it("should has the correct type and payload for {{this.errAction}}", () => {
+    const given = { some: "dummy" };
+    const expected = { type: {{this.errType}}, payload: { some: "dummy" } };
+
+    expect({{this.errAction}}(given)).toStrictEqual(expected);
+  });
+{{/each}}
+});

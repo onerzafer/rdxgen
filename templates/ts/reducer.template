@@ -1,0 +1,31 @@
+// Check https://ngrx.io/guide/store/reducers for usage
+import { Action, createReducer, on } from '@ngrx/store';
+import {
+    {{#each groupedActionTypes}}
+        {{this.initAction}},
+        {{this.okAction}},
+        {{this.errAction}},
+    {{/each}}
+} from '{{filePaths.actions}}';
+import {
+    {{pascalName}}State,
+} from '{{filePaths.interfaces}}';
+
+const {{pascalName}}InitialState: {{pascalName}}State = {
+    pending: false,
+    data: null,
+    error: null,
+};
+
+const {{camelName}}Reducer = createReducer(
+  {{pascalName}}InitialState,
+  {{#each groupedActionTypes}}
+      on({{this.initAction}}, state => ({...state, pending: true, error: null})),
+      on({{this.okAction}}, (state, { payload }) => ({...state, pending: false, data: payload})),
+      on({{this.errAction}}, (state, {payload}) => ({...state, pending: false, error: payload})),
+  {{/each}}
+);
+
+export function reducer(state: {{pascalName}}State | undefined, action: Action) {
+  return {{camelName}}Reducer(state, action);
+}
