@@ -35,9 +35,9 @@ rdxgen -t
 Then the CLI starts asking the following questions
 
 ```bash
-? Name of new reducer:
-? path of the store:
-? Enter actions with space-separated:
+? Name of the new reducer (Product Categories):
+? Path of the store (src/stores):
+? Enter the space-separated action names (GET SET ...):
 ? Success suffix:
 ? Error suffix:
 ```
@@ -56,9 +56,9 @@ Let`s assume we would like to have a Products reducer and related actions.
 
 ```bash
 rdxgen
-? Name of new reducer: Products
-? path of the store: src/reduxStore
-? Enter actions with space-separated: GET_PRODUCTS UPDATE_PRODUCT ADD_PRODUCT DELETE_PRODUCT
+? Name of the new reducer (Product Categories): Products
+? Path of the store (src/stores): src/reduxStore
+? Enter the space-separated action names (GET SET ...): GET_PRODUCTS UPDATE_PRODUCT ADD_PRODUCT DELETE_PRODUCT
 ? Success suffix: SUCCESS
 ? Error suffix: ERROR
 ```
@@ -100,9 +100,9 @@ Let's assume you gave the following answers:
 
 ```bash
 rdxgen
-? Name of new reducer: Product categories
-? path of the store: store
-? Enter actions with space-separated: GET SET
+? Name of the new reducer (Product Categories): Product categories
+? Path of the store (src/stores): store
+? Enter the space-separated action names (GET SET ...): GET SET
 ? Success suffix: OK
 ? Error suffix: ERR
 ```

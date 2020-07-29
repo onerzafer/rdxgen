@@ -11,17 +11,17 @@ module.exports = {
     {
       type: 'input',
       name: 'name',
-      message: 'Name of new reducer:',
+      message: 'Name of the new reducer (Product Categories):',
     },
     {
       type: 'input',
       name: 'path',
-      message: 'path of store:',
+      message: 'Path of the store (src/stores):',
     },
     {
       type: 'input',
       name: 'actions',
-      message: 'Enter actions with space separated:',
+      message: 'Enter the space-separated action names (GET SET ...):',
     },
     {
       type: 'input',

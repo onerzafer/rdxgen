@@ -38,12 +38,12 @@ program
         })
         .then(() => {
           console.log('*******************************************');
-          console.log('Thanks for using rdxgen for help -> https://github.com/onerzafer/rdxgen');
+          console.log('Thanks for using rdxgen! For help -> https://github.com/onerzafer/rdxgen');
           const chance = Math.random();
           if (chance <= 0.5) {
             console.log('Hint: -s or --save will save your answers. You will be faster next time. 😉');
           } else {
-            console.log('Hint: -e or --export will export default templates. You can create your own boilerplate. 😉');
+            console.log('Hint: -e or --export will export the default templates. You can create your own boilerplate with them. 😉');
           }
           console.log('\n');
           console.log("Here's a potato!");

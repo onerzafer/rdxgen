@@ -15,7 +15,7 @@ function exportTemplates(isTypescript) {
       console.log('*******************************************');
       console.log(`Templates are exported -> ${destination}`);
       console.log(`it's better to add rdxgen to your .gitignore file. Or you can keep it.`);
-      console.log(`How to update the templates?🤔`);
+      console.log(`How to update the templates? 🤔`);
       console.log(`👉 Check the repository to find out -> https://github.com/onerzafer/rdxgen`);
       console.log('\n');
       console.log("Here's a potato!");
@@ -24,6 +24,8 @@ function exportTemplates(isTypescript) {
     });
   } else {
     console.log(`Templates are already exported -> ${destination}`);
+    console.log(`If you want a fresh start, simply delete the templates folder that is located at ${destination}`);
+    console.log(`Then run "rgxgen -e"`);
   }
 }
 
