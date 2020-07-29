@@ -1,6 +1,6 @@
 # rdxgen: Redux Reducer and Action boilerplate Generator
 
-A simple and highly customizable CLI to generate the reducer and action files and their respective tests under given folder.
+A simple and highly customizable CLI to generate the reducer and action files and their respective tests under the given folder.
 
 🎉🎉🎉 Now it supports [templates](#templating) 🎉🎉🎉
 
@@ -18,7 +18,7 @@ yarn global add rdxgen
 
 ## Usage
 
-Since its an interactive CLI, you simply call following command, and it will ask questions to you. Answer the questions, and you will get your redux boilerplate ready to use whether as Javascript or Typescript . The good thing is all the test are green :)
+Since its an interactive CLI, you simply call the following command, and it will ask questions to you. Answer the questions, and you will get your redux boilerplate ready to use whether as Javascript or Typescript. The good thing is all the test are green :)
 
 For Javascript
 
@@ -32,12 +32,12 @@ For Typescript
 rdxgen -t
 ```
 
-Then the CLI start asking following questions
+Then the CLI starts asking the following questions
 
 ```bash
 ? Name of new reducer:
-? path of store:
-? Enter actions with space saperated:
+? path of the store:
+? Enter actions with space-separated:
 ? Success suffix:
 ? Error suffix:
 ```
@@ -48,7 +48,7 @@ Don't forget to save your default answers by adding s to your command
 rdxgen -s
 ```
 
-Next time you will be asked way less questions.
+Next time you will be asked way fewer questions.
 
 ## Example
 
@@ -56,14 +56,14 @@ Let`s assume we would like to have a Products reducer and related actions.
 
 ```bash
 rdxgen
-? Name of new reducer: Producsts
-? path of store: src/reduxStore
-? Enter actions with space saperated: GET_PRODUCTS UPDATE_PRODUCT ADD_PRODUCT DELETE_PRODUCT
+? Name of new reducer: Products
+? path of the store: src/reduxStore
+? Enter actions with space-separated: GET_PRODUCTS UPDATE_PRODUCT ADD_PRODUCT DELETE_PRODUCT
 ? Success suffix: SUCCESS
 ? Error suffix: ERROR
 ```
 
-This will create following files
+This will create the following files
 
 - src/reduxStore/Products/Products.actions.js
 - src/reduxStore/Products/Products.actions.test.js
@@ -72,7 +72,7 @@ This will create following files
 
 or
 
-This will create following files
+This will create the following files
 
 - src/reduxStore/Products/Products.actions.ts
 - src/reduxStore/Products/Products.actions.test.ts
@@ -82,7 +82,7 @@ This will create following files
 
 ## Templating
 
-Templates are Handlebar templates and rdxgen passes some variables, so you can create the best template for your project. Even rdxgen has no opinion on libraries, the default templates are prepared for the most used libraries in the market. On typescript templates the output files will be compatible with @ngrx/store and for the javascript side assumed library is redux.
+Templates are Handlebar templates and rdxgen passes some variables, so you can create the best template for your project. Even rdxgen has no opinion on libraries, the default templates are prepared for the most used libraries in the market. On typescript templates, the output files will be compatible with @ngrx/store and for the javascript side, the assumed library is redux.
 
 You can easily export default templates with the following command
 
@@ -96,13 +96,13 @@ This command will not generate a reducer but will export the default templates. 
 
 rgxgen will dynamically generate from your answers. I will explain the rules here about how they are generated and can be used.
 
-Let's assume you gave following answers:
+Let's assume you gave the following answers:
 
 ```bash
 rdxgen
 ? Name of new reducer: Product categories
-? path of store: store
-? Enter actions with space saperated: GET SET
+? path of the store: store
+? Enter actions with space-separated: GET SET
 ? Success suffix: OK
 ? Error suffix: ERR
 ```
@@ -166,13 +166,12 @@ the following variables will be filled like this.
   }
 }
 ```
-I tried to provide a broad choice over naming conventions. By using this structure any Handlebar template can be used. More over it is possible to generate many more files. I would like to explain **filePaths** variable. Default js templates contains the following files with following names.
+I tried to provide a broad choice over naming conventions. By using this structure any Handlebar template can be used. Moreover, it is possible to generate many more files. I would like to explain the **filePaths** variable. Default js templates contain the following files with the following names.
  * actions.template
  * actions.test.template
  * reducer.template
  * reducer.test.template
-There fore rdxgen drops the file suffix .template and populate the **filePaths** object with template names as keys. Values are the relative import paths for final generated files.
+
+Therefore rdxgen drops the file suffix .template and populate the **filePaths** object with template names as keys. Values are the relative import paths for final generated files.
 
 For any further questions don't hesitate to ask them via issues.
-
-
