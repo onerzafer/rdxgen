@@ -133,7 +133,8 @@ the following variables will be filled like this.
   "groupedActionTypes": [
     {
       "actionName": "productCategories",
-      "service": "getProductCategories",
+      "service": "GetProductCategories",
+      "serviceAsFunction": "getProductCategories",
       "initType": "PRODUCT_CATEGORIES_GET",
       "initTypeValue": "[Product Categories] GET",
       "initAction": "productCategoriesGetAction",

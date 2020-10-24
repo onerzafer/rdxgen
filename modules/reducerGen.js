@@ -32,6 +32,7 @@ function generateReducer(options, isTypescript = false, overrideTemplates) {
       {
         actionName: changeCase.camelCase(action),
         service: changeCase.pascalCase(`${action} ${options.name}`),
+        serviceAsFunction: changeCase.camelCase(`${action} ${options.name}`),
         initType: changeCase.constantCase(`${options.name} ${action}`),
         initTypeValue: `[${changeCase.titleCase(options.name)}] ${changeCase.constantCase(action)}`,
         initAction: changeCase.pascalCase(`${options.name} ${action} Action`),
