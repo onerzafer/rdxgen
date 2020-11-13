@@ -1,22 +1,22 @@
 import {
-{{#each groupedActionTypes}}
-  {{this.initAction}},
-  {{this.okAction}},
-  {{this.errAction}},
+{{#each actions}}
+  {{camelCase @root.name this.init}},
+  {{camelCase @root.name this.ok}},
+  {{camelCase @root.name this.err}},
 {{/each}}
 } from '{{filePaths.actions}}';
-import { {{camelName}}Reducer } from './{{filePaths.reducer}}';
+import { {{camelCase name}}Reducer } from '{{filePaths.reducer}}';
 
 describe("{{filePaths.reducer}}  tests", () => {
-{{#each groupedActionTypes}}
-  it('should update the state properly for {{this.initAction}}', () => {
+{{#each actions}}
+  it('should update the state properly for {{camelCase @root.name this.init}}', () => {
     const given = {
       pending: false,
       data: { dummy: "state" },
       error: undefined
     };
 
-    const action = {{this.initAction}}({ dummy: "payload" });
+    const action = {{camelCase @root.name this.init}}({ dummy: "payload" });
 
     const expected = {
       pending: true,
@@ -24,17 +24,17 @@ describe("{{filePaths.reducer}}  tests", () => {
       error: undefined
     };
 
-    expect({{@root.camelName}}Reducer(given, action)).toEqual(expected);
+    expect({{camelCase @root.name}}Reducer(given, action)).toEqual(expected);
   });
 
-  it('should update the state properly for {{this.okAction}}', () => {
+  it('should update the state properly for {{camelCase @root.name this.ok}}', () => {
     const given = {
       pending: true,
       data: undefined,
       error: undefined
     };
 
-    const action = {{this.okAction}}({ dummy: "payload" });
+    const action = {{camelCase @root.name this.ok}}({ dummy: "payload" });
 
     const expected = {
       pending: false,
@@ -42,17 +42,17 @@ describe("{{filePaths.reducer}}  tests", () => {
       error: undefined
     };
 
-    expect({{@root.camelName}}Reducer(given, action)).toEqual(expected);
+    expect({{camelCase @root.name}}Reducer(given, action)).toEqual(expected);
   });
 
-  it('should update the state properly for {{this.errAction}}', () => {
+  it('should update the state properly for {{camelCase @root.name this.err}}', () => {
     const given = {
       pending: true,
       data: { dummy: "state" },
       error: undefined
     };
 
-    const action = {{this.errAction}}({ payload: "error" });
+    const action = {{camelCase @root.name this.err}}({ payload: "error" });
 
     const expected = {
       pending: false,
@@ -60,7 +60,7 @@ describe("{{filePaths.reducer}}  tests", () => {
       error: "error"
     };
 
-    expect({{@root.camelName}}Reducer(given, action)).toEqual(expected);
+    expect({{camelCase @root.name}}Reducer(given, action)).toEqual(expected);
   });
 {{/each}}
 });

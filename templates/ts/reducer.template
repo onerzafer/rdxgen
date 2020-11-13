@@ -1,31 +1,31 @@
 // Check https://ngrx.io/guide/store/reducers for usage
 import { Action, createReducer, on } from '@ngrx/store';
 import {
-    {{#each groupedActionTypes}}
-        {{this.initAction}},
-        {{this.okAction}},
-        {{this.errAction}},
+    {{#each actions}}
+        {{camelCase this.init}},
+        {{camelCase this.ok}},
+        {{camelCase this.err}},
     {{/each}}
 } from '{{filePaths.actions}}';
 import {
-    {{pascalName}}State,
+    {{pascalCase name}}State,
 } from '{{filePaths.interfaces}}';
 
-const {{pascalName}}InitialState: {{pascalName}}State = {
+const {{camelCase name}}InitialState: {{pascalCase name}}State = {
     pending: false,
     data: null,
     error: null,
 };
 
-const {{camelName}}Reducer = createReducer(
-  {{pascalName}}InitialState,
-  {{#each groupedActionTypes}}
-      on({{this.initAction}}, state => ({...state, pending: true, error: null})),
-      on({{this.okAction}}, (state, { payload }) => ({...state, pending: false, data: payload})),
-      on({{this.errAction}}, (state, {payload}) => ({...state, pending: false, error: payload})),
+const {{camelCase name}}Reducer = createReducer(
+  {{camelCase name}}InitialState,
+  {{#each actions}}
+      on({{camelCase this.init}}, state => ({...state, pending: true, error: null})),
+      on({{camelCase this.ok}}, (state, { payload }) => ({...state, pending: false, data: payload})),
+      on({{camelCase this.err}}, (state, {payload}) => ({...state, pending: false, error: payload})),
   {{/each}}
 );
 
-export function reducer(state: {{pascalName}}State | undefined, action: Action) {
-  return {{camelName}}Reducer(state, action);
+export function reducer(state: {{pascalCase name}}State | undefined, action: Action) {
+  return {{camelCase name}}Reducer(state, action);
 }

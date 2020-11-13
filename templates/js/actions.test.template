@@ -1,36 +1,36 @@
 import {
-{{#each actionTypes}}
-  {{this}},
-{{/each}}
-{{#each groupedActionTypes}}
-  {{this.initAction}},
-  {{this.okAction}},
-  {{this.errAction}},
+{{#each actions}}
+  {{constantCase @root.name this.init}},
+  {{constantCase @root.name this.ok}},
+  {{constantCase @root.name this.err}},
+  {{camelCase @root.name this.init}},
+  {{camelCase @root.name this.ok}},
+  {{camelCase @root.name this.err}},
 {{/each}}
 } from '{{filePaths.actions}}';
 
 
 describe("{{filePaths.actions}} tests", () => {
-{{#each groupedActionTypes}}
-  it("should has the correct type and payload for {{this.initAction}}", () => {
+{{#each actions}}
+  it("should has the correct type and payload for {{camelCase @root.name this.init}}", () => {
     const given = { some: "dummy" };
-    const expected = { type: {{this.initType}}, payload: { some: "dummy" } };
+    const expected = { type: {{constantCase @root.name this.init}}, payload: { some: "dummy" } };
 
-    expect({{this.initAction}}(given)).toStrictEqual(expected);
+    expect({{camelCase @root.name this.init}}(given)).toStrictEqual(expected);
   });
 
-  it("should has the correct type and payload for {{this.okAction}}", () => {
+  it("should has the correct type and payload for {{camelCase @root.name this.ok}}", () => {
     const given = { some: "dummy" };
-    const expected = { type: {{this.okType}}, payload: { some: "dummy" } };
+    const expected = { type: {{constantCase @root.name this.ok}}, payload: { some: "dummy" } };
 
-    expect({{this.okAction}}(given)).toStrictEqual(expected);
+    expect({{camelCase @root.name this.ok}}(given)).toStrictEqual(expected);
   });
 
-  it("should has the correct type and payload for {{this.errAction}}", () => {
+  it("should has the correct type and payload for {{camelCase @root.name this.err}}", () => {
     const given = { some: "dummy" };
-    const expected = { type: {{this.errType}}, payload: { some: "dummy" } };
+    const expected = { type: {{constantCase @root.name this.err}}, payload: { some: "dummy" } };
 
-    expect({{this.errAction}}(given)).toStrictEqual(expected);
+    expect({{camelCase @root.name this.err}}(given)).toStrictEqual(expected);
   });
 {{/each}}
 });

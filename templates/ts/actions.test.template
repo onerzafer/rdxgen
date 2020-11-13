@@ -1,39 +1,39 @@
 import {
-    {{pascalName}}ActionTypes,
-    {{#each groupedActionTypes}}
-      {{this.initAction}},
-      {{this.okAction}},
-      {{this.errAction}},
+    {{pascalName name}}ActionTypes,
+    {{#each actions}}
+      {{camelCase this.init}},
+      {{camelCase this.ok}},
+      {{camelCase this.err}},
     {{/each}}
 } from '{{filePaths.actions}}';
 import {
-    {{#each groupedActionTypes}}
-        {{this.okAction}}Payload,
+    {{#each actions}}
+        {{pascalCase this.ok}}Payload,
     {{/each}}
 } from '{{filePaths.interfaces}}';
 
 
 describe("{{filePaths.actions}} tests", () => {
-{{#each groupedActionTypes}}
-  it("should has the correct type and payload for {{this.initAction}}", () => {
+{{#each actions}}
+  it("should has the correct type and payload for {{camelCase this.init}}", () => {
     const given = { some: "dummy" };
-    const expected = { type: {{@root.pascalName}}ActionTypes.{{this.initType}}, payload: { some: "dummy" } };
+    const expected = { type: {{camelCase @root.name}}ActionTypes.{{constantCase this.init}}, payload: { some: "dummy" } };
 
-    expect({{this.initAction}}(given)).toStrictEqual(expected);
+    expect({{camelCase this.init}}(given)).toStrictEqual(expected);
   });
 
-  it("should has the correct type and payload for {{this.okAction}}", () => {
-    const given = { some: "dummy" } as {{this.okAction}}Payload;
-    const expected = { type: {{@root.pascalName}}ActionTypes.{{this.okType}}, payload: { some: "dummy" } };
+  it("should has the correct type and payload for {{camelCase this.ok}}", () => {
+    const given = { some: "dummy" } as {{pascalCase this.ok}}Payload;
+    const expected = { type: {{camelCase @root.name}}ActionTypes.{{constantCase this.ok}}, payload: { some: "dummy" } };
 
-    expect({{this.okAction}}(given)).toStrictEqual(expected);
+    expect({{camelCase this.ok}}(given)).toStrictEqual(expected);
   });
 
-  it("should has the correct type and payload for {{this.errAction}}", () => {
+  it("should has the correct type and payload for {{camelCase this.err}}", () => {
     const given = { some: "dummy" };
-    const expected = { type: {{@root.pascalName}}ActionTypes.{{this.errType}}, payload: { some: "dummy" } };
+    const expected = { type: {{camelCase @root.name}}ActionTypes.{{constantCase this.err}}, payload: { some: "dummy" } };
 
-    expect({{this.errAction}}(given)).toStrictEqual(expected);
+    expect({{camelCase this.err}}(given)).toStrictEqual(expected);
   });
 {{/each}}
 });

@@ -1,22 +1,22 @@
-{{#each groupedActionTypes}}
-export const {{this.initType}} = '{{this.initTypeValue}}';
-export const {{this.okType}} = '{{this.okTypeValue}}';
-export const {{this.errType}} = '{{this.errTypeValue}}';
+{{#each actions}}
+export const {{constantCase @root.name this.init}} = '[{{sentenceCase @root.name}}] {{sentenceCase this.init}}';
+export const {{constantCase @root.name this.ok}} = '[{{sentenceCase @root.name}}] {{sentenceCase this.ok}}';
+export const {{constantCase @root.name this.err}} = '[{{sentenceCase @root.name}}] {{sentenceCase this.err}}';
 {{/each}}
 
-{{#each groupedActionTypes}}
-export const {{this.initAction}} = (payload) => ({
-  type: {{this.initType}},
+{{#each actions}}
+export const {{camelCase @root.name  this.init}} = (payload) => ({
+  type: {{constantCase @root.name this.init}},
   payload,
 });
 
-export const {{this.okAction}} = (payload) => ({
-  type: {{this.okType}},
+export const {{camelCase @root.name this.ok}} = (payload) => ({
+  type: {{constantCase @root.name this.ok}},
   payload,
 });
 
-export const {{this.errAction}} = (payload) => ({
-  type: {{this.errType}},
+export const {{camelCase @root.name this.err}} = (payload) => ({
+  type: {{constantCase @root.name this.err}},
   payload,
 });
 

@@ -3,7 +3,7 @@
 const program = require('commander');
 const { prompt } = require('inquirer');
 const CONSTANTS = require('./modules/constants');
-const reducerGen = require('./modules/reducerGen');
+const hydrateTemplates = require('./modules/hydrateTemplates');
 const exportTemplates = require('./modules/exportTemplates');
 const readAnswers = require('./modules/readAnswers');
 const readTemplates = require('./modules/readTemplates');
@@ -25,7 +25,7 @@ program
     } else {
       prompt(questions)
         .then(answers =>
-          reducerGen(
+          hydrateTemplates(
             preSavedAnswers ? { ...answers, ...preSavedAnswers } : answers,
             !!program.typescript,
             overrideTemplates

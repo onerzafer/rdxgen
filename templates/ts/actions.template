@@ -1,33 +1,33 @@
 // Check https://ngrx.io/guide/store/actions for usage
 import { createAction, props } from '@ngrx/store';
 import {
-{{#each groupedActionTypes}}
-    {{this.okAction}}Payload,
+{{#each actions}}
+    {{pascalCase this.ok}}Payload,
 {{/each}}
 } from '{{filePaths.interfaces}}';
 
-export const enum {{pascalName}}ActionTypes {
-{{#each groupedActionTypes}}
-    {{this.initType}} = '{{this.initTypeValue}}',
-    {{this.okType}} = '{{this.okTypeValue}}',
-    {{this.errType}} = '{{this.errTypeValue}}',
+export const enum {{pascalCase name}}ActionTypes {
+{{#each actions}}
+    {{constantCase this.init}} = '[{{sentenceCase @root.name}}] {{sentenceCase this.init}}',
+    {{constantCase this.ok}} = '[{{sentenceCase @root.name}}] {{sentenceCase this.ok}}',
+    {{constantCase this.err}} = '[{{sentenceCase @root.name}}] {{sentenceCase this.err}}',
 {{/each}}
 };
 
-{{#each groupedActionTypes}}
-export const {{this.initAction}} = createAction(
-  {{@root.pascalName}}ActionTypes.{{this.initType}},
+{{#each actions}}
+export const {{camelCase this.init}} = createAction(
+  {{pascalCase @root.name}}ActionTypes.{{constantCase this.init}},
   props<{payload: any}>(),
 );
 
-export const {{this.okAction}} = createAction(
-  {{@root.pascalName}}ActionTypes.{{this.okType}},
-  props<{payload: {{this.okAction}}Payload}>(),
+export const {{camelCase this.ok}} = createAction(
+  {{pascalCase @root.name}}ActionTypes.{{constantCase this.ok}},
+  props<{payload: any}>(),
 );
 
-export const {{this.errAction}} = createAction(
-  {{@root.pascalName}}ActionTypes.{{this.errType}},
-  props<{payload: string}>(),
+export const {{camelCase this.err}} = createAction(
+  {{pascalCase @root.name}}ActionTypes.{{constantCase this.err}},
+  props<{payload: any}>(),
 );
 
 {{/each}}

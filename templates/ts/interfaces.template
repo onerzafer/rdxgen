@@ -1,11 +1,11 @@
-export interface {{pascalName}}State {
+export interface {{pascalCase name}}State {
     pending: boolean;
     data: any;
     error: string;
 }
 
-{{#each groupedActionTypes}}
-export interface {{this.okAction}}Payload {
+{{#each actions}}
+export interface {{pascalCase this.ok}}Payload {
     [key: string]: any;
 }
 {{/each}}
