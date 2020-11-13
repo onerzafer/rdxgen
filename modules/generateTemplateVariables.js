@@ -9,9 +9,11 @@ function generateTemplateVariables(options, fileName, templates) {
     {},
   );
 
+  const actions = typeof options.actions === 'string' ? options.actions.split(' ') : options.actions;
+
   return {
     name: changeCase.lowerCase(options.name),
-    actions: options.actions.split(' ').map(action => {
+    actions: actions.map(action => {
       const a = action.trim();
       return {
         init: changeCase.lowerCase(a),

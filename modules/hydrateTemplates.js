@@ -39,6 +39,7 @@ function generateReducer(options, isTypescript = false, overrideTemplates) {
     'sentenceCase',
     'upperCaseFirst',
     'lowerCaseFirst',
+    'kebabCase',
   ].reduce((cumulative, helperName) => ({
     ...cumulative, [helperName]: (...stringValues) => changeCase[helperName](stringValues.filter(v => typeof v === 'string').join(' ')),
   }), {});
