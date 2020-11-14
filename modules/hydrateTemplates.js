@@ -41,10 +41,14 @@ function generateReducer(options, isTypescript = false, overrideTemplates) {
     'lowerCaseFirst',
     'kebabCase',
   ].reduce((cumulative, helperName) => ({
-    ...cumulative, [helperName]: (...stringValues) => changeCase[helperName](stringValues.filter(v => typeof v === 'string').join(' ')),
+    ...cumulative,
+    [helperName]: (...stringValues) => changeCase[helperName](stringValues.filter(v => typeof v === 'string').join(' ')),
   }), {});
 
   Handlebars.registerHelper(helperFunctions);
+  Handlebars.registerHelper('ifEquals', (arg1, arg2, options) => {
+    return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
+  });
 
   templates.forEach(({ name, template }) => {
     const t = Handlebars.compile(template);

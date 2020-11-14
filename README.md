@@ -169,4 +169,15 @@ constantCase('some string') => SOME_STRING
 {{constantCase 'some string'}} => SOME_STRING
 ```
 
+### Additional helpers
+#### ifEquals
+Sometimes, standard handlebar if statement is not sufficient so "ifEquals" is providing a value check mechanism
+```
+{{each actions}}
+    {{ifEquals this.init "get"}}
+        Some special code for get action
+    {{/ifEquals}}
+{{/each}}
+```
+
 For any further questions don't hesitate to ask them via issues.

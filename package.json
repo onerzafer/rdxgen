@@ -1,6 +1,6 @@
 {
   "name": "rdxgen",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "redux boilerplate generator for reducers and actions and many more via templates for @ngrx or redux based projects!",
   "keywords": [
     "@ngrx",
